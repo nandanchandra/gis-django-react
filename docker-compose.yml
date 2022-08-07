@@ -1,0 +1,44 @@
+version: "3"
+
+services:
+  gisdjango:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: gis-django
+    ports:
+      - 8000:8000
+    command: >
+      sh -c  "python manage.py migrate --noinput &&
+              python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    restart: "on-failure"
+    depends_on:
+      - postgres-db
+    networks:
+      - gis-django-react
+
+  postgres-db:
+    image: library/postgres:11-alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASS=Chandra@123
+      - POSTGRES_DB=gisdjango
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    restart: "on-failure"
+    networks:
+      - gis-django-react
+
+networks:
+  gis-django-react:
+    driver: bridge
+
+volumes:
+  postgres_data:
