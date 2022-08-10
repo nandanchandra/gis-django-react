@@ -6,8 +6,6 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     container_name: gis-django
-    ports:
-      - 8000:8000
     command: >
       sh -c  "python manage.py migrate --noinput &&
               python manage.py runserver 0.0.0.0:8000"
@@ -33,6 +31,18 @@ services:
       - POSTGRES_DB=gisdjango
       - POSTGRES_HOST_AUTH_METHOD=trust
     restart: "on-failure"
+    networks:
+      - gis-django-react
+
+  nginx:
+    restart: always
+    depends_on:
+      - gisdjango
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.dev
+    ports:
+      - 8000:80
     networks:
       - gis-django-react
 
