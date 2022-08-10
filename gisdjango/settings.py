@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'api',
+
     'django.contrib.gis',
     'leaflet',
     'rest_framework',
@@ -98,7 +100,7 @@ DATABASES ={
         'ENGINE':'django.contrib.gis.db.backends.postgis',
         'NAME': env("POSTGRES_DB"),
         'USER': env("POSTGRES_USER"),
-        'PASSWORD': env("POSTGRES_PASS"),
+        'PASSWORD': env("POSTGRES_PASSWORD"),
         'HOST': env("PG_HOST"),
         'PORT': env("PG_PORT"),
     }
@@ -128,7 +130,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Calcutta'
 
 USE_I18N = True
 
@@ -146,3 +148,13 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+LEAFLET_CONFIG = {
+    'DEFAULT_CENTER': (20.5937, 78.9629),
+    'DEFAULT_ZOOM': 10,
+    'MAX_ZOOM': 20,
+    'SCALE': 'both',
+    'ATTRIBUTION_PREFIX': 'Hospital Map'
+}

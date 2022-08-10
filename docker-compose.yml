@@ -22,14 +22,14 @@ services:
       - gis-django-react
 
   postgres-db:
-    image: library/postgres:11-alpine
+    image: postgis/postgis
     ports:
       - 5432:5432
     volumes:
       - postgres_data:/var/lib/postgresql
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_PASS=Chandra@123
+      - POSTGRES_PASSWORD=Chandra@123
       - POSTGRES_DB=gisdjango
       - POSTGRES_HOST_AUTH_METHOD=trust
     restart: "on-failure"
