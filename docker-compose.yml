@@ -19,6 +19,19 @@ services:
     networks:
       - gis-django-react
 
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    container_name: api_frontend
+    volumes:
+      - ./app/node_modules
+      - ./client:/app
+    depends_on:
+      - gisdjango
+    networks:
+      - gis-django-react
+
   postgres-db:
     image: postgis/postgis
     ports:
