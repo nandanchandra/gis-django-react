@@ -52,6 +52,9 @@ services:
     restart: always
     depends_on:
       - gisdjango
+    volumes:
+      - ./staticfiles:/app/staticfiles
+      - ./mediafiles:/app/mediafiles
     build:
       context: ./nginx
       dockerfile: Dockerfile.dev
